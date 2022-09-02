@@ -290,6 +290,7 @@ public class MySingleLinkedList<E> {
         }
         ListNode<E> fast = A;
         ListNode<E> slow = A;
+        ListNode<E> start = A;
         while (fast != null && fast.next != null){
             fast = fast.next.next;
             slow = slow.next;
@@ -297,25 +298,21 @@ public class MySingleLinkedList<E> {
         ListNode<E> slowPrev = slow;
         ListNode<E> slowNext = slow.next;
         ListNode<E> slowCure = slow;
-        while (){
-
+        while (slowNext != null){
+            slowCure = slowNext;
+            slowNext = slowNext.next;
+            slowCure.next = slowPrev;
+            slowPrev = slowCure;
         }
+        slow.next = null;
+        while (slowCure != start && start.next != slowCure){
+            if (start.value != slowCure.value){
+                return false;
+            }
+            slowCure = slowCure.next;
+            start = start.next;
+        }
+        return true;
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 }
