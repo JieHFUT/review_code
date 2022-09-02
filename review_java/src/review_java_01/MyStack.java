@@ -7,7 +7,18 @@ package review_java_01;
  * Date: 2022-09-02
  * Time: 9:00
  */
-public class MyStack {
+public class MyStack<E> {
+
+    public E[] elem;
+
+    public int size;
+
+    public MyStack(){
+        this.elem = (E[])new Object[2];
+    }
+
+
+
 
 
 

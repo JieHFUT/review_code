@@ -205,12 +205,6 @@ public class MySingleLinkedList<E> {
     public ListNode<E> returnLastK(int k){
         ListNode<E> prevNote = this.head;
         ListNode<E> node = this.head;
-
-
-
-
-
-
         while (k > 0 && prevNote != null){
             prevNote = prevNote.next;
             k--;
@@ -224,6 +218,96 @@ public class MySingleLinkedList<E> {
         }
         return node;
     }
+
+
+
+    public ListNode<Integer> returnNew(ListNode<Integer> head1, ListNode<Integer> head2){
+        if (head1 == null) return head2;
+        if (head2 == null) return head1;
+
+        ListNode<Integer> listNode = new ListNode<>();
+        ListNode<Integer> ret = listNode;
+        while (head1 != null && head2 != null){
+            if (head1.value < head2.value){
+                listNode.next = head1;
+                head1 = head1.next;
+            }else {
+                listNode.next = head2;
+                head2 = head2.next;
+            }
+        }
+        if (head1 == null){
+            while (head2 != null){
+                listNode.next = head2;
+                head2 = head2.next;
+            }
+        }
+        if (head2 == null){
+            while (head1 != null){
+                listNode.next = head1;
+                head1 = head1.next;
+            }
+        }
+        return ret.next;
+    }
+
+
+    public ListNode<Integer> sortPointK(ListNode<Integer> head, int x){
+        ListNode<Integer> bs = null;
+        ListNode<Integer> be = null;
+        ListNode<Integer> as = null;
+        ListNode<Integer> ae = null;
+        ListNode<Integer> currentHead = head;
+        while (head != null){
+            if (head.value < x){
+                if (bs == null){
+                    bs = currentHead;
+                    be = currentHead;
+                }else {
+                    be.next = currentHead;
+                    be = be.next;
+                }
+            }else {
+                if (as == null){
+                    as = currentHead;
+                    ae = currentHead;
+                }else {
+                    ae.next = currentHead;
+                    ae = ae.next;
+                }
+            }
+        }
+        if (bs == null) return as;
+        if (as == null) return bs;
+        be.next = as;
+        return bs;
+    }
+
+
+    public boolean chkPalindrome(ListNode A) {
+        while (A == null) {
+            throw new IllegalArgumentException("该链表为空！");
+        }
+        ListNode<E> fast = A;
+        ListNode<E> slow = A;
+        while (fast != null && fast.next != null){
+            fast = fast.next.next;
+            slow = slow.next;
+        }
+        ListNode<E> slowPrev = slow;
+        ListNode<E> slowNext = slow.next;
+        ListNode<E> slowCure = slow;
+        while (){
+
+        }
+    }
+
+
+
+
+
+
+
 
 
 
