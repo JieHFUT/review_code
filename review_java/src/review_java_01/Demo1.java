@@ -29,5 +29,8 @@ public class Demo1 {
         Demo4<String> stringDemo4 = new Demo4<>();
         stringDemo4.setMessage("好好学习!");
         func(stringDemo4);
+
+
+
     }
 }
