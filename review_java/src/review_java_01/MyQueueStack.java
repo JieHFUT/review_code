@@ -7,17 +7,7 @@ package review_java_01;
  * Date: 2022-09-03
  * Time: 20:58
  */
-public class MyQueue {
-
-
-
-
-
-
-
-
-
-
+public class MyQueueStack {
 
 
 }
