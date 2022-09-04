@@ -35,7 +35,25 @@ public class TestMyBinaryTree {
         int numTreeNode = binaryTree.getNumNode(binaryTree.root);
         System.out.println("树中节点的个数：" + numTreeNode);
 
+        int numKLevelNode = binaryTree.getNumKLevelNode(binaryTree.root, 3);
+        System.out.println("该层的节点个数：" + numKLevelNode);
 
+        int treeHeight = binaryTree.getTreeHeight(binaryTree.root);
+        System.out.println("该树的高度是：" + treeHeight);
+
+        System.out.println("D所在节点的值为：" + binaryTree.find(binaryTree.root, 'D').item);
+
+        binaryTree.levelOrder(binaryTree.root);
+
+        List<List<Character>> lists = binaryTree.otherLevelOrder(binaryTree.root);
+        System.out.println(lists);
+
+        //是不是完全二叉树
+        System.out.println(binaryTree.isCompleteTree(binaryTree.root));
+
+        MyBinaryTree<Character> myBinaryTree = new MyBinaryTree<>();
+        myBinaryTree.createBinaryTree();
+        System.out.println(myBinaryTree.isSameTree(myBinaryTree.root, binaryTree.root));
 
 
     }
