@@ -1,4 +1,4 @@
-package review_java_01;
+package stack;
 
 import java.util.Stack;
 

@@ -13,6 +13,7 @@ public class TestMySort {
 
     public static void main(String[] args) {
 
+
         int[] array1 = new int[]{1,34,22,5,11,27,455,35,324,546};
         MySort mySort = new MySort();
         mySort.insertSort(array1);
@@ -26,6 +27,16 @@ public class TestMySort {
         mySort.selectSort(array3);
         System.out.println(Arrays.toString(array3));
 
+        int[] array4 = new int[]{1,34,22,5,11,27,455,35,324,546};
+        mySort.quickSortHoare(array4);
+        System.out.println(Arrays.toString(array4));
 
+        int[] array5 = new int[]{1,34,22,5,11,27,455,35,324,546};
+        mySort.quickSortPit(array5);
+        System.out.println(Arrays.toString(array5));
+
+        int[] array6 = new int[]{1,34,22,5,11,27,455,35,324,546};
+        mySort.quickSortPointer(array6);
+        System.out.println(Arrays.toString(array6));
     }
 }

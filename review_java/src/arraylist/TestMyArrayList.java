@@ -1,4 +1,6 @@
-package review_java_01;
+package arraylist;
+
+import arraylist.MyArrayList;
 
 /**
  * Created with IntelliJ IDEA.

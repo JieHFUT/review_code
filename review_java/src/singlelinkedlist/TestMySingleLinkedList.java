@@ -1,4 +1,4 @@
-package review_java_01;
+package singlelinkedlist;
 
 /**
  * Created with IntelliJ IDEA.

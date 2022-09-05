@@ -1,4 +1,4 @@
-package review_java_01;
+package doublelinkedlist;
 
 
 import java.util.Collection;

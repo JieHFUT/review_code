@@ -1,4 +1,4 @@
-package review_java_01;
+package queue;
 
 /**
  * Created with IntelliJ IDEA.

@@ -110,23 +110,130 @@ public class MySort {
     /**
      * 快排的 Hoare方法
      * @param array
-     * @param left
-     * @param right
+     * @param low
+     * @param high
      * @return
      */
-    public int partition(int[] array, int left, int right){
+    private int partitionHoare(int[] array, int low, int high){
+        int i = low;
+        int pivot = array[low];
+        while (low < high){
 
+            while(low < high && array[high] >= pivot){
+                high--;
+            }
+
+            while (low < high && array[low] <= pivot){
+                low++;
+            }
+
+            swap(array,low,high);
+        }
+        swap(array,low,i);
+
+        return low;
     }
 
     public void quickHoare(int[] array, int left, int right){
         if (left >= right) return;
-        int pivot = this.partition(array, left, right);
+        int pivot = this.partitionHoare(array, left, right);
         this.quickHoare(array, left, pivot-1);
         this.quickHoare(array, pivot + 1, right);
     }
     public void quickSortHoare(int[] array){
         this.quickHoare(array, 0, array.length-1);
     }
+
+
+    /**
+     * 挖坑法
+     * @param array
+     * @param left
+     * @param right
+     * @return
+     */
+    public int partitionPit(int[] array, int left, int right){
+        int pit = left;
+        int tmp = array[left];
+        while (left < right){
+            while (left < right && array[right] >= tmp){
+                right--;
+            }
+            array[pit] = array[right];
+            pit = right;
+            while (left < right && array[left] <= tmp){
+                left++;
+            }
+            array[pit] = array[left];
+            pit = left;
+        }
+        array[pit] = tmp;
+        return pit;
+    }
+    public void quickPit(int[] array, int left, int right){
+        if (left >= right) return;
+        int pivot = this.partitionPit(array, left, right);
+        this.quickPit(array, left, pivot-1);
+        this.quickPit(array, pivot + 1, right);
+    }
+    public void quickSortPit(int[] array){
+        this.quickPit(array, 0, array.length-1);
+    }
+
+
+
+    /**
+     * 双指针法
+     * @param array
+     * @param low
+     * @param high
+     */
+    private void partitionPointer(int[] array, int low, int high){
+        int cur = low + 1;
+        int prev = low;
+        while(cur <= high){
+            while (array[cur] < array[low] && array[++prev] != array[low]){
+                swap(array,cur,prev);
+            }
+            cur++;
+        }
+
+    }
+
+    private int partitionPointer2(int[] array, int left, int right) {
+        int d = left + 1;
+        int pivot = array[left];
+        for (int i = left + 1; i <= right; i++) {
+            if (array[i] < pivot) {
+                swap(array, i, d);
+                d++;
+            }
+        }
+        swap(array, d - 1, left);
+        return d - 1;
+    }
+
+    private void quickPointer(int[] array, int low, int high){
+        while(low >= high) return;
+        int pivot = partitionHoare(array,low,high);
+        quickHoare(array,low,pivot-1);
+        quickHoare(array,pivot+1,high);
+    }
+
+    public void quickSortPointer(int[] array){
+        quickHoare(array,0,array.length-1);
+    }
+
+
+
+
+
+
+
+
+
+
+
 
 
 
