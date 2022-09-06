@@ -408,59 +408,71 @@ public class MySort {
     }
 
 
+    /**
+     * 非递归实现归并排序
+     * @param array
+     */
+    public  void mergeSortNor(int[] array) {
+        int gap = 1;
+        while (gap < array.length) {
+            for (int i = 0; i < array.length; i += 2*gap) {
+                int left = i;
+                int mid = left + gap - 1;
+                //修正mid
+                if(mid >= array.length) {
+                    mid = array.length-1;
+                }
+                int right = mid + gap;
+                //修正right
+                if(right >= array.length) {
+                    right = array.length-1;
+                }
+                merge(array, left, mid, right);
+            }
+            gap *= 2;
+        }
+    }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    /**
+     * 计数排序：
+     * 时间复杂度：O(范围+N)
+     * 空间复杂度：O(范围)
+     * 计数排序和当前数据给定的范围是有关系的。
+     *         int range = maxVal-minVal+1;
+     *         集中的就好点；  0-100-》10
+     * 稳定性：
+     * @param array
+     */
+    public static void countSort(int[] array) {
+        //1、获取最大值和最小值
+        int maxVal = array[0];
+        int minVal = array[0];
+        //O(N)
+        for (int i = 1; i < array.length; i++) {
+            if(array[i] < minVal) {
+                minVal = array[i];
+            }
+            if(array[i] > maxVal) {
+                maxVal = array[i];
+            }
+        }
+        //2、开始计数
+        int range = maxVal-minVal+1;
+        int[] count = new int[range];
+        //O(N)
+        for (int i = 0; i < array.length; i++) {
+            count[array[i]-minVal]++;
+        }
+        //3、遍历这个计数数组，把数据放回array
+        //O(范围 + n), 某一次 可能是n次
+        int index = 0;
+        for (int i = 0; i < count.length; i++) {
+            while (count[i] > 0) {
+                array[index++] = i+minVal;
+                count[i]--;
+            }
+        }
+    }
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
