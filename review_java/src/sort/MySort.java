@@ -1,5 +1,7 @@
 package sort;
 
+import java.util.Stack;
+
 /**
  * Created with IntelliJ IDEA.
  * Description:
@@ -197,7 +199,6 @@ public class MySort {
             }
             cur++;
         }
-
     }
 
     private int partitionPointer2(int[] array, int left, int right) {
@@ -226,11 +227,185 @@ public class MySort {
 
 
 
+    /**
+     * 优化后的快排
+     * @param array
+     */
+    public void quickSort(int[] array){
+        this.quickPitForquickSort(array, 0, array.length-1);
+    }
+
+
+    /**
+     * 找到中间的基准的下标
+     * @param array
+     * @param left
+     * @param right
+     */
+    public int medianOfThreeIndex(int[] array, int left, int right){
+        int mid = left + (right - left) >>> 1;
+        if (array[left] < array[mid]){
+            if (array[left] > array[right]) return left;
+            if (array[mid] < array[right]) return mid;
+            return right;
+        }else {
+            if (array[mid] > array[right]) return mid;
+            if (array[left] < array[right]) return left;
+            return right;
+        }
+    }
+    public void quickPitForquickSort(int[] array, int left, int right){
+        if (left >= right) return;
+
+        //1、在某一个区间内部的直接插入排序
+        if (right - left + 1 < 60){
+            this.insertSortForQuickSort(array, left, right);
+            return;
+        }
+        //2、三数取中法
+        int index = this.medianOfThreeIndex(array, left, right);
+        this.swap(array, left, index);
+
+        //3、可以将基准相同的数字放到一起，从而可以减少递归的次数
+
+
+        int pivot = this.partitionPitForQuickSort(array, left, right);
+        this.quickPitForquickSort(array, left, pivot-1);
+        this.quickPitForquickSort(array, pivot + 1, right);
+    }
+
+
+    public int partitionPitForQuickSort(int[] array, int left, int right){
+        int pit = left;
+        int tmp = array[left];
+        while (left < right){
+            while (left < right && array[right] >= tmp){
+                right--;
+            }
+            array[pit] = array[right];
+            pit = right;
+            while (left < right && array[left] <= tmp){
+                left++;
+            }
+            array[pit] = array[left];
+            pit = left;
+        }
+        array[pit] = tmp;
+        return pit;
+    }
+
+
+    public void insertSortForQuickSort(int[] array, int left, int right){
+        int j = 0;
+        int tmp = 0;
+        for (int i = left + 1; i <= right; i++) {
+            j = i - 1;
+            tmp = array[i];
+            while (j >= left){
+                if (array[j] > tmp){
+                    array[j + 1] = array[j];
+                    j--;
+                }else {
+                    break;
+                }
+            }
+            array[j + 1] = tmp;
+        }
+    }
+
+
+    /**
+     * 非递归实现快排
+     * @param array
+     */
+    public void quickSortNor(int[] array){
+        this.partitionForQuickSortNor(array, 0, array.length-1);
+    }
+
+    public void partitionForQuickSortNor(int[] array, int left, int right){
+        if (left >= right) return;
+        Stack<Integer> stack = new Stack<>();
+
+        int pivot = this.partitionHoare(array, left, right);
+        if (pivot > left + 1){
+            stack.push(left);
+            stack.push(pivot - 1);
+        }
+        if (pivot < right - 1){
+            stack.push(pivot + 1);
+            stack.push(right);
+        }
+        while (!stack.isEmpty()){
+            right = stack.pop();
+            left = stack.pop();
+            pivot = this.partitionHoare(array, left, right);
+            if (pivot > left + 1){
+                stack.push(left);
+                stack.push(pivot - 1);
+            }
+            if (pivot < right - 1){
+                stack.push(pivot + 1);
+                stack.push(right);
+            }
+        }
+    }
 
 
 
 
 
+
+
+
+
+
+    /**
+     * 归并排序
+     * @param array
+     */
+    public void mergeSort(int[] array){
+        this.partitionForMergeSort(array, 0, array.length-1);
+    }
+
+    public void partitionForMergeSort(int[] array, int left, int right){
+        if (left >= right) return;
+
+        int mid = left + ((right - left) >>> 2);
+        this.partitionForMergeSort(array, left, mid);
+        this.partitionForMergeSort(array, mid+1, right);
+
+        this.merge(array, left, mid, right);
+    }
+
+    public void merge(int[] array, int low, int mid, int high){
+        int s1 = low;
+        int e1 = mid;
+        int s2 = mid + 1;
+        int e2 = high;
+        int[] arr = new int[high - low + 1];
+        int j = 0;
+
+        while (s1 <= e1 && s2 <= e2){
+            if (array[s1] <= array[s2]){
+                arr[j++] = array[s1++];
+            }else {
+                arr[j++] = array[s2++];
+            }
+        }
+        if (s1 > e1){
+            while (s2 <= e2){
+                arr[j++] = array[s2++];
+            }
+        }
+        if (s2 > e2){
+            while (s1 <= e1){
+                arr[j++] = array[s1++];
+            }
+        }
+        for (int i = 0; i < arr.length; i++) {
+            array[i + low] = arr[i];
+        }
+    }
 
 
 
@@ -256,3 +431,36 @@ public class MySort {
 
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
