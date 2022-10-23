@@ -1,9 +1,8 @@
-package socket.UDP;
+package socket.UDP1;
 
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
-import java.net.SocketException;
 import java.util.Arrays;
 
 /**

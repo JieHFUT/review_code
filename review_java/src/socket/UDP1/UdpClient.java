@@ -1,4 +1,4 @@
-package socket.UDP;
+package socket.UDP1;
 
 import java.io.IOException;
 import java.net.*;
