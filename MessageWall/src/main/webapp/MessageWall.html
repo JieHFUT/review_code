@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>表白墙</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        .container {
+            width: 800px;
+            margin: 10px auto;
+        }
+
+        .container h2 {
+            text-align: center;
+            margin: 30px 0px;
+        }
+
+        .row {
+            height: 50px;
+            display: flex;
+            justify-content: center;
+            margin-top: 5px;
+            line-height: 50px;
+        }
+
+        .row span {
+            height: 50px;
+            width: 100px;
+            line-height: 50px;
+        }
+
+        .row input {
+            height: 50px;
+            width: 300px;
+            line-height: 50px;
+        }
+
+        .row button {
+            width: 400px;
+            height: 50px;
+            color: white;
+            background-color: orange;
+            border: none;
+            border-radius: 10px;
+        }
+
+        .row button:active {
+            background-color: grey;
+        }
+    </style>
+</head>
+<body>
+    <!-- 这是一个顶层容器, 放其他元素 -->
+    <div class="container">
+        <h2>表白墙</h2>
+        <div class="row">
+            <span>谁</span>
+            <input type="text" id="from">
+        </div>
+
+        <div class="row">
+            <span>对谁</span>
+            <input type="text" id="to">
+        </div>
+
+        <div class="row">
+            <span>说什么</span>
+            <input type="text" id="message">
+        </div>
+
+        <div class="row">
+            <button>提交</button>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+    <script>
+        let container = document.querySelector('.container');
+        let fromInput = document.querySelector('#from');
+        let toInput = document.querySelector('#to');
+        let messageInput = document.querySelector('#message');
+        let button = document.querySelector('button');
+        button.onclick = function() {
+            // 1. 把用户输入的内容获取到. 
+            let from = fromInput.value;
+            let to = toInput.value;
+            let message = messageInput.value;
+            if (from == '' || to == '' || message == '') {
+                return;
+            }
+            // 2. 构造一个 div, 把这个 div 插入到 .container 的末尾
+            let newDiv = document.createElement('div');
+            newDiv.className = 'row';
+            newDiv.innerHTML = from + " 对 " + to + " 说: " + message;
+            // 3. 把 div 挂在 container 里面
+            container.appendChild(newDiv);
+            // 4. 把之前的输入框内容进行清空
+            fromInput.value = '';
+            toInput.value = '';
+            messageInput.value = '';
+
+            // 5. [新的步骤] 需要把刚才输入框里取到的数据, 构造成 POST 请求, 交给后端服务器!
+            let messageJson = {
+                "from": from,
+                "to": to,
+                "message": message
+            };
+            $.ajax({
+                type: 'post',
+                // 相对路径的写法
+                url: 'message',
+                contentType: 'application/json;charset=utf8',
+                // 绝对路径的写法
+                // url: '/MessageWall/message',
+                data: JSON.stringify(messageJson),
+                success: function(body) {
+                    alert("提交成功!");
+                },
+                error: function() {
+                    // 会在服务器返回的状态码不是 2xx 的时候触发这个 error. 
+                    alert("提交失败!");
+                }
+            });
+        }
+
+        // 这个函数在页面加载的时候调用. 通过这个函数从服务器获取到当前的消息列表. 
+        // 并且显示到页面上. 
+        function load() {
+            $.ajax({
+                type: 'get',
+                url: 'message',
+                success: function(body) {
+                    // 此处得到的 body 已经是一个 js 对象的数组了. 
+                    // ajax 自动帮我们进行类型转换了. 
+                    // 本来服务器返回的是 JSON 格式的字符串, ajax 会自动的根据 Content-Type 为 application/json
+                    // 对响应的 body 进行解析, 解析成 js 对象. 
+                    // 遍历数组的元素, 把内容构造到页面上. 
+                    let container = document.querySelector('.container');
+                    for (let message of body) {
+                        let newDiv = document.createElement('div');
+                        newDiv.className = 'row';
+                        newDiv.innerHTML = message.from + " 对 " + message.to + " 说 " + message.message;
+                        container.appendChild(newDiv);
+                    }
+                }
+            })
+        }
+
+        // 函数调用写在这里, 就表示在页面加载的时候来进行执行. 
+        load();
+
+    </script>
+</body>
+</html>
