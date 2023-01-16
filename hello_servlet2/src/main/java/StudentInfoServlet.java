@@ -59,5 +59,6 @@ public class StudentInfoServlet extends HttpServlet {
 
 
         // objectMapper.writeValue();
+        // 把一个字符串转成Java对象
     }
 }
