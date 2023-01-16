@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .one {
+            font-size: 50px;
+        }
+    </style>
+</head>
+<body>
+    <div class="one">
+
+    </div>
+
+    <button id="doGet">get</button>
+    <button id="doPost">post</button>
+    <button id="doPut">put</button>
+    <button id="doDelete">delete</button>
+
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+    <script>
+        let doGetBtn = document.querySelector('#doGet');
+        doGetBtn.onclick = function() {
+            $.ajax({
+                type: 'get',
+                url: 'hello',
+                success: function(body) {
+                    let div = document.querySelector('.one');
+                    div.innerHTML = body;
+                    // console.log(body);
+                }
+            })
+        }
+
+        let doPostBtn = document.querySelector('#doPost');
+        doPostBtn.onclick = function() {
+            $.ajax({
+                type: 'post',
+                url: 'hello',
+                // url: '/hello_servlet/hello',
+                success: function(body) {
+                    // console.log(body);
+                    let div = document.querySelector('.one');
+                    div.innerHTML = body;
+                }
+            });
+        }
+
+        let doPutBtn = document.querySelector('#doPut');
+        doPutBtn.onclick = function() {
+            $.ajax({
+                type: 'put',
+                url: 'hello',
+                // url: '/hello_servlet/hello',
+                success: function(body) {
+                    // console.log(body);
+                    let div = document.querySelector('.one');
+                    div.innerHTML = body;
+                }
+            });
+        }
+
+        let doDeleteBtn = document.querySelector('#doDelete');
+        doDeleteBtn.onclick = function() {
+            $.ajax({
+                type: 'delete',
+                url: 'hello',
+                // url: '/hello_servlet/hello',
+                success: function(body) {
+                    // console.log(body);
+                    let div = document.querySelector('.one');
+                    div.innerHTML = body;
+                }
+            });
+        }
+
+    </script>
+</body>
+</html>
