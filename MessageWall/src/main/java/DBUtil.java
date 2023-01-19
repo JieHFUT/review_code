@@ -1,11 +1,11 @@
-import com.mysql.jdbc.jdbc2.optional.MysqlDataSource;
+import com.mysql.cj.jdbc.MysqlDataSource;
 
 import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
+// MySQL8.0
 // 期望通过这个类来完成数据库建立连接的过程.
 // 建立连接需要使用 DataSource . 并且一个程序有一个 DataSource 实例即可. 此处就使用单例模式来实现.
 public class DBUtil {
@@ -14,7 +14,7 @@ public class DBUtil {
     private static DataSource getDataSource() {
         if (dataSource == null) {
             dataSource = new MysqlDataSource();
-            ((MysqlDataSource)dataSource).setURL("jdbc:mysql://127.0.0.1:3306/MessageWall?characterEncoding=utf8&useSSL=false");
+            ((MysqlDataSource)dataSource).setURL("jdbc:mysql://127.0.0.1:3306/MessageWall?characterEncoding=utf8&useSSL=false?serverTimezone=UTC");
             ((MysqlDataSource)dataSource).setUser("root");
             ((MysqlDataSource)dataSource).setPassword("959452");
         }
