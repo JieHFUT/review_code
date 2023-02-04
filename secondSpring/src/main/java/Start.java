@@ -1,6 +1,7 @@
 import com.jieHFUT.component.FastComponent;
 import com.jieHFUT.config.FastConfiguration;
 import com.jieHFUT.controller.FastController;
+import com.jieHFUT.model.User;
 import com.jieHFUT.repository.FastRepository;
 import com.jieHFUT.serive.FastSerive;
 import org.springframework.context.ApplicationContext;
@@ -13,6 +14,7 @@ public class Start {
                 new ClassPathXmlApplicationContext("spring-config.xml");
         FastController controller = context1.getBean("fastController", FastController.class);
         controller.sayController();
+
 
 
         ApplicationContext context2 =
@@ -37,6 +39,12 @@ public class Start {
                 new ClassPathXmlApplicationContext("spring-config.xml");
         FastConfiguration configuration = context5.getBean("fastConfiguration", FastConfiguration.class);
         configuration.sayConfiguration();
+
+
+        ApplicationContext context6 =
+                new ClassPathXmlApplicationContext("spring-config.xml");
+        User user = context6.getBean("firstUser", User.class);
+        System.out.println(user.getName());
 
     }
 }
