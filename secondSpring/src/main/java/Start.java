@@ -1,5 +1,7 @@
 import com.jieHFUT.component.FastComponent;
 import com.jieHFUT.config.FastConfiguration;
+import com.jieHFUT.controller.DogController;
+import com.jieHFUT.controller.DogController2;
 import com.jieHFUT.controller.FastController;
 import com.jieHFUT.model.User;
 import com.jieHFUT.repository.FastRepository;
@@ -46,5 +48,32 @@ public class Start {
         User user = context6.getBean("firstUser", User.class);
         System.out.println(user.getName());
 
+
+        ApplicationContext context7 =
+                new ClassPathXmlApplicationContext("spring-config.xml");
+        DogController dogController = context7.getBean("dogController", DogController.class);
+        dogController.doDisplay();
+
+
+
+        ApplicationContext context8 =
+                new ClassPathXmlApplicationContext("spring-config.xml");
+        DogController2 dogController2 = context8.getBean("dogController2", DogController2.class);
+        dogController2.doDisplay();
+
+
+
+
     }
 }
+
+
+
+
+
+
+
+
+
+
+

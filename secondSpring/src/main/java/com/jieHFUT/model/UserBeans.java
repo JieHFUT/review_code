@@ -16,4 +16,15 @@ public class UserBeans {
         user.setName("zhangsan");
         return user;
     }
+
+    @Bean(name = "thirdUser")
+    public User setSecondUser() {
+        User user = new User();
+        user.setAge(23);
+        user.setName("lisi");
+        return user;
+    }
+
+
+
 }
