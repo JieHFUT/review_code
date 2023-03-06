@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.mapper.UserMapper">
+    <resultMap id="BaseMap" type="com.example.demo.model.UserInfo">
+        <id column="id" property="id"></id>
+        <result column="username" property="name"></result>
+        <result column="password" property="password"></result>
+    </resultMap>
+    <select id="getAll" resultMap="BaseMap">
+        select * from userinfo
+    </select>
+
+    <select id="getAllByOrder" resultType="com.example.demo.model.UserInfo">
+        select * from userinfo order by id ${order}
+    </select>
+
+    <select id="getUserById" resultType="com.example.demo.model.UserInfo">
+        select * from userinfo where id=#{uid}
+    </select>
+
+    <select id="getUserByName" resultType="com.example.demo.model.UserInfo">
+        select * from userinfo
+        <where>
+            <if test="username!=null">
+                and username=#{username}
+            </if>
+        </where>
+    </select>
+
+    <select id="login" resultType="com.example.demo.model.UserInfo">
+        select * from userinfo where username=#{username} and password=#{password}
+    </select>
+
+    <delete id="delByIds">
+        delete from userinfo where id in
+        <foreach collection="ids" item="item" open="(" close=")" separator=",">
+            #{item}
+        </foreach>
+    </delete>
+
+    <insert id="add">
+        insert into userinfo
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="username!=null">
+                username,
+            </if>
+            <if test="password!=null">
+                password,
+            </if>
+            <if test="photo!=null">
+                photo,
+            </if>
+        </trim>
+        values
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="username!=null">
+                #{username},
+            </if>
+            <if test="password!=null">
+                #{password},
+            </if>
+            <if test="photo!=null">
+                #{photo},
+            </if>
+        </trim>
+    </insert>
+
+</mapper>

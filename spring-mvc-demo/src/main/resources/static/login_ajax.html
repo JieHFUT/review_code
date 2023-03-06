@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="js/jquery.min.js"></script>
+</head>
+<body>
+ <div>
+    <h1> 登录 </h1>
+     用户：<input id="name" name="name"><br>
+     密码：<input id="password" name="password"><br>
+    <input type="button" onclick="onsub()" value=" 提 交 ">
+ </div>
+<script>
+    function onsub(){
+        // 请求后端的接口使用 ajax
+        jQuery.ajax({
+            url:"login2",
+            type:"POST",
+            data:{"name":jQuery("#name").val(),"password":jQuery("#password").val()},
+            success:function(result){
+               alert(result);
+               console.dir(result);
+            }
+        });
+    }
+</script>
+</body>
+</html>
